@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Sentiment Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+<!-- Loading overlay -->
+<div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loading-content">
+        <div class="youtube-logo">
+            <i class="fab fa-youtube"></i>
+        </div>
+        <p>Analyzing...</p>
+    </div>
+</div>
+
+<div class="bg-animation">
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h1 class="title">Sentiment Analyzer</h1>
+            </div>
+            <p class="subtitle">Analyze audience emotions from YouTube comments instantly</p>
+        </div>
+
+        <div class="form-container">
+            <form action="/dashboard" method="POST" id="sentiment-form">
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <input type="text" name="youtube_link" id="youtube-link" placeholder="Paste YouTube URL here" required>
+                </div>
+                <button type="submit" class="analyze-btn">
+                    <span>Analyze Sentiment</span>
+                    <i class="fas fa-chart-bar"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="feature-text">Real-time Analysis</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="feature-text">Secure & Private</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="feature-text">Detailed Insights</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2025 YouTube Sentiment Analyzer | All Rights Reserved
+        </div>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('sentiment-form');
+const youtubeLinkInput = document.getElementById('youtube-link');
+
+form.addEventListener('submit', function (e) {
+
+    const youtubeUrl = youtubeLinkInput.value.trim();
+
+    if (!isValidYouTubeUrl(youtubeUrl)) {
+        e.preventDefault();
+        alert('Please enter a valid YouTube URL');
+        return;
+    }
+
+    // Show loading overlay while sending request
+    document.getElementById('loading-overlay').classList.remove('hidden');
+});
+
+function isValidYouTubeUrl(url) {
+    const pattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    return pattern.test(url);
+}
+</script>
+<script>
+    // Completely disable page restore on BACK
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            location.reload();
+        }
+    });
+</script>
+
+
+
+
+</body>
+</html>
