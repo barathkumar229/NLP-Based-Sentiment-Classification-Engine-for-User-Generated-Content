@@ -106,6 +106,9 @@ def dashboard():
         genai.configure(api_key=GEMINI_API_KEY)
 
         gemini = genai.GenerativeModel("gemini-2.5-flash")
+        positive_comments_sample = positive_comments[:10]
+        negative_comments_sample = negative_comments[:10]
+
 
         prompt = f"""
         Analyze the comments and return ONLY a JSON object with this structure:
@@ -121,10 +124,10 @@ def dashboard():
         - No extra text outside JSON.
 
         Positive comments:
-        {chr(10).join(positive_comments)}
+        {chr(10).join(positive_comments_sample)}
 
         Negative comments:
-        {chr(10).join(negative_comments)}
+        {chr(10).join(negative_comments_sample)}
         """
 
         response_text = gemini.generate_content(prompt).text.strip()
