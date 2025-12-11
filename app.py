@@ -105,7 +105,7 @@ def dashboard():
 
         genai.configure(api_key=GEMINI_API_KEY)
 
-        gemini = genai.GenerativeModel("gemini-2.0-flash")
+        gemini = genai.GenerativeModel("gemini-1.5-flash")
 
         prompt = f"""
         Analyze the comments and return ONLY a JSON object with this structure:
